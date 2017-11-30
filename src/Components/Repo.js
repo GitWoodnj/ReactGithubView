@@ -1,8 +1,6 @@
-import ReactDOM from 'react';
 import React, {Component} from 'react';
 import axios from 'axios';
 import IssueList from '../Components/IssueList';
-import {Route} from 'react-router-dom';
 
 class Repo extends Component {
     constructor(){
@@ -14,11 +12,10 @@ class Repo extends Component {
     clickFunc = (event) => {
         axios.get(`https://api.github.com/repos/${this.props.owner.login}/${this.props.name}/issues`)
         .then(resp => this.receiveIssues(resp.data));
-        () => window.history.pushState('/Issue');
     }
 
     receiveIssues = (issues) => {
-        if (issues.length == this.state.issue.length)
+        if (issues.length === this.state.issue.length)
         {
             this.setState({issue: []})
         }

@@ -1,17 +1,12 @@
-import ReactDOM from 'react';
 import React, { Component } from 'react';
 import Repo from '../Components/Repo';
 
-class User extends Component {
-  constructor(){
-      super();
-  }
-  
+class User extends Component {  
   render(){
 
     var repoCount;
 
-    if(this.props.repos.length != 0)
+    if(this.props.repos.length !== 0)
       {
         repoCount = `Repos: ${this.props.repos.length}`;
       }
@@ -23,7 +18,7 @@ class User extends Component {
     return (
     <div>
       <div style={{margin: '1em'}}>
-        <img width="150" src={this.props.user_url}/>
+        <img alt='' width="150" src={this.props.user_url}/>
         <div style={{display: 'inline-block', marginLeft: 10, verticalAlign: 'top'}}>
           <div style={{fontWeight: 'bold', fontSize: '2.25em', fontVariant: 'small-caps', textShadow: '2px 2px 8px Black'}}>
             {this.props.name}

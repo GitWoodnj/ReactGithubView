@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import '../Containers/App.css'
 import Form from '../Components/SearchBar';
 import User from '../Containers/User';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
 
-class App extends React.Component {
+class App extends Component {
   state = {
     repos: [],
     userName: '',
@@ -52,9 +51,9 @@ class App extends React.Component {
             </div>
             
         </header>
-        <body>
+        <div>
           <User repos={this.state.repos} name={this.state.userName} user_url={this.state.userURL}/>
-        </body>
+        </div>
       </div>
       
     );

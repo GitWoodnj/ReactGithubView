@@ -1,4 +1,3 @@
-import ReactDOM from 'react';
 import React from 'react';
 import Comment from '../Components/Comment';
 

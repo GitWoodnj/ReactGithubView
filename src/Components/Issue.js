@@ -1,8 +1,6 @@
-import ReactDOM from 'react';
 import React, {Component} from 'react';
 import axios from 'axios';
 import CommentList from '../Components/CommentList';
-import {Comment} from './Comment';
 
 export default class Issue extends Component {
     constructor(){
@@ -16,7 +14,7 @@ export default class Issue extends Component {
         axios.get(`${this.props.comments_url}`)
              .then(response =>
             {
-                if (response.data.length == this.state.comment.length)
+                if (response.data.length === this.state.comment.length)
                 {
                     this.setState({comment: []})
                 }
@@ -30,7 +28,7 @@ export default class Issue extends Component {
                 }
                 
             });
-            () => window.history.pushState('/commentList');
+            
     }
     render(){
         return(

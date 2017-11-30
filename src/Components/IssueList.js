@@ -1,4 +1,3 @@
-import ReactDOM from 'react';
 import React from 'react';
 import Issue from '../Components/Issue';
 
