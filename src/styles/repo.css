@@ -1,0 +1,32 @@
+.repo {
+  text-align: left;
+  margin-left: 10;
+  background: #78966c;
+  padding: .6em;
+  box-shadow: 2px 2px 8px Black;
+}
+
+.repoText {
+  text-align: left
+}
+
+.name {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.description {
+  font-size: .95em
+}
+
+.date {
+  font-size: .75em
+}
+
+.language {
+  font-size: .75em
+}
+
+.issueCount {
+  font-size: .85em
+}

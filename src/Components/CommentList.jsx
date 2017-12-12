@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Comment from '../Components/Comment';
+import Comment from '../components/Comment';
 
 const CommentList = (props) =>
   (

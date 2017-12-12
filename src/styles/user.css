@@ -1,0 +1,22 @@
+.user {
+  margin: 1em;
+}
+
+.user-info {
+  display: inline-block;
+  margin-left: 10;
+  vertical-align: top;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 2.25em; 
+  font-variant: small-caps; 
+  text-shadow: 2px 2px 8px Black
+}
+
+.count {
+  font-weight: bold; 
+  font-size: 1.5em;
+  text-shadow: 2px 2px 8px Black
+}

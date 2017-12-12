@@ -1,0 +1,17 @@
+.issueBox {
+  text-align: left;
+  margin: 1em; 
+  margin-left: 2em;
+  background: #4f8b96;
+  box-shadow: 2px 2px 8px Black
+  
+}
+
+.body {
+  text-align: left;
+  padding: 0.4em
+}
+
+.bodyInfo {
+  font-weight: bold 
+}

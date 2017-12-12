@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../Containers/App.css';
-import Form from '../Components/SearchBar';
-import User from '../Containers/User';
-
+import '../containers/App.css';
+import Form from '../components/SearchBar';
+import User from '../containers/User';
+import '../styles/app.css';
 
 class App extends Component {
   state = {
@@ -32,15 +32,8 @@ class App extends Component {
       <div className="App">
         <br />
         <header>
-          <div style={{ textAlign: 'center', width: '100%' }}>
-            <span style={{
-              fontSize: '5.0em',
-              fontWeight: 'bold',
-              fontFamily: 'Baskerville',
-              fontVariant: 'small-caps',
-              textShadow: '2px 2px 8px Black'
-            }}
-            >
+          <div className="appBox">
+            <span className="appRepo">
                 Git Some Repos
             </span> <br /><br />
             <Form onSubmit={this.addNewCard} />

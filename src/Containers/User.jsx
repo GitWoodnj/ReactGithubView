@@ -1,5 +1,6 @@
 import React from 'react';
-import Repo from '../Components/Repo';
+import Repo from '../components/Repo';
+import '../styles/user.css';
 
 function User(gitUser) {
   let repoCount;
@@ -12,16 +13,13 @@ function User(gitUser) {
 
   return (
     <div>
-      <div style={{ margin: '1em' }}>
+      <div className="user">
         <img alt="" width="150" src={gitUser.user_url} />
-        <div style={{ display: 'inline-block', marginLeft: 10, verticalAlign: 'top' }}>
-          <div style={{
-            fontWeight: 'bold', fontSize: '2.25em', fontVariant: 'small-caps', tegitUsertShadow: '2pgitUser 2pgitUser 8pgitUser Black'
-          }}
-          >
+        <div className="user-info">
+          <div className="name">
             {gitUser.name}
           </div>
-          <div style={{ fontWeight: 'bold', fontSize: '1.5em', tegitUsertShadow: '2pgitUser 2pgitUser 8pgitUser Black' }}>
+          <div className="count">
             {repoCount}
           </div>
         </div>

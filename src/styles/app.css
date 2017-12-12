@@ -1,0 +1,12 @@
+.appBox {
+  text-align: center;
+  width: 100%
+}
+
+.appRepo {
+  font-size: 5.0em;
+  font-weight: bold;
+  font-family: Baskerville;
+  font-variant: small-caps;
+  text-shadow: 2px 2px 8px Black;
+}

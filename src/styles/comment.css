@@ -1,0 +1,14 @@
+.commentBox {
+  align-content: left;
+  margin-left: 3em; 
+  border-left: 2px solid #ffffff;
+}
+
+.body {
+  margin-left: .5em;
+}
+
+.info {
+  margin-left: 1em;
+  font-weight: bold;
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import IssueList from '../Components/IssueList';
+import '../styles/repo.css';
+import IssueList from '../components/IssueList';
 
 class Repo extends Component {
   constructor() {
@@ -28,29 +29,23 @@ class Repo extends Component {
         <div >
           <div
             onDoubleClick={this.clickFunc}
-            style={{
-              align: 'left',
-              marginLeft: 10,
-              background: '#78966c',
-              padding: '.6em',
-              boxShadow: '2px 2px 8px Black'
-            }}
+            className="repo"
           >
-            <div style={{ align: 'left' }}>
-              <div style={{ fontSize: '1.25em', fontWeight: 'bold' }}>
+            <div className="repoText">
+              <div className="name">
                 {this.props.name}
               </div>
-              <div style={{ fontSize: '.95em' }} >
+              <div className="description" >
                 {this.props.description ? this.props.description : 'No description.'}
               </div>
               <hr />
-              <div type="date" style={{ fontSize: '.75em' }} >
+              <div type="date" className="date" >
                         Created: {this.props.created_at}
               </div>
-              <div style={{ fontSize: '.75em' }}>
+              <div className="language" >
                         Language: {this.props.language}
               </div>
-              <div style={{ fontSize: '.85em' }}>
+              <div className="issueCount" >
                         Issues: {this.props.open_issues_count} {' '}
               </div>
             </div>

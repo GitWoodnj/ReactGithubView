@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Issue from '../Components/Issue';
+import Issue from '../components/Issue';
 
 const IssueList = (props) => (
   <div>

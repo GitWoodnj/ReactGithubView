@@ -1,12 +1,13 @@
 import React from 'react';
+import '../styles/comment.css';
 
 function Comment(prop) {
   return (
     <div>
       <br />
-      <div style={{ align: 'left', marginLeft: '3em', borderLeft: '2px solid #ffffff' }}>
-        <div style={{ align: 'left', marginLeft: '.5em' }}>{prop.body}</div>
-        <div style={{ align: 'left', marginLeft: '1em', fontWeight: 'bold' }}>{ ' - ' }{prop.user.login} {' '} {prop.created_at}</div>
+      <div className="commentBox">
+        <div className="body">{prop.body}</div>
+        <div className="info">{ ' - ' }{prop.user.login} {' '} {prop.created_at}</div>
       </div>
     </div>
   );
