@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../styles/repo.css';
+import store from '../store/store';
 import IssueList from '../components/IssueList';
 
 class Repo extends Component {
-  constructor() {
-    super();
-    this.state = {
-      issue: []
-    };
-  }
-
     clickFunc = () => {
       axios.get(`https://api.github.com/repos/${this.props.owner.login}/${this.props.name}/issues`)
         .then(resp => this.receiveIssues(resp.data));
     }
 
     receiveIssues = (issues) => {
-      if (issues.length === this.state.issue.length) {
-        this.setState({ issue: [] });
+      if (issues.length === store.issue.length) {
+        store.dispatch({
+          type: 'REPO',
+          payload: []
+        });
       } else {
-        this.setState({ issue: issues });
+        store.dispatch({
+          type: 'REPO',
+          payload: issues
+        });
       }
     }
     render() {
@@ -52,7 +52,7 @@ class Repo extends Component {
 
 
           </div>
-          <IssueList issue={this.state.issue} />
+          <IssueList issue={store.issue} />
           <br />
         </div>
       );

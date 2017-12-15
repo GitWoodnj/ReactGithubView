@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
-import '../containers/App.css';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Form from '../components/SearchBar';
 import User from '../containers/User';
+import store from '../store/store';
 import '../styles/app.css';
 
-class App extends Component {
-  state = {
-    repos: [],
-    userName: '',
-    userURL: ''
-  };
+const mapStateToProps = (state) => ({
+  ...state,
+  repos: state.repo,
+  userName: state.userName,
+  userUrl: state.userUrl
+});
 
+class App extends Component {
   addNewCard = (cardInfo) => {
     if (cardInfo[0] != null) {
-      this.setState(() => ({
-        repos: cardInfo,
-        userName: cardInfo[0].owner.login,
-        userURL: cardInfo[0].owner.avatar_url
-      }));
+      store.dispatch({
+        type: 'APP',
+        user: cardInfo[0].owner.login,
+        repoArr: cardInfo,
+        URL: cardInfo[0].owner.avatar_url
+      });
     } else {
-      this.setState(() => ({
-        userName: 'ERROR! User repo not found',
-        repos: [],
-        userURL: ''
-
-      }));
+      store.dispatch({
+        type: 'APP',
+        user: 'Error! No repos found for user',
+        repoArr: [],
+        URL: ''
+      });
     }
   };
+
   render() {
     return (
       <div className="App">
@@ -41,12 +46,17 @@ class App extends Component {
 
         </header>
         <div>
-          <User repos={this.state.repos} name={this.state.userName} user_url={this.state.userURL} />
+          <User repos={this.props.repos} name={this.props.userName} user_url={this.props.userUrl} />
         </div>
       </div>
-
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  repos: PropTypes.array.isRequired,
+  userName: PropTypes.string.isRequired,
+  userUrl: PropTypes.string.isRequired
+};
+
+export default connect(mapStateToProps)(App);

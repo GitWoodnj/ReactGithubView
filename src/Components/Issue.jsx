@@ -2,27 +2,23 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../styles/issue.css';
+import store from '../store/store';
 import CommentList from '../components/CommentList';
 
 export default class Issue extends Component {
-  constructor() {
-    super();
-    this.state = {
-      comment: []
-    };
-  }
-
     clickButt = () => {
       axios.get(`${this.props.comments_url}`)
         .then(response => {
-          if (response.data.length === this.state.comment.length) {
-            this.setState({ comment: [] });
+          if (response.data.length === store.comment.length) {
+            store.dispatch({
+              type: 'ISSUE',
+              payload: []
+            });
           } else {
-            this.setState(() => (
-              {
-                comment: response.data
-              }
-            ));
+            store.dispatch({
+              type: 'ISSUE',
+              payload: response.data
+            });
           }
         });
     }
@@ -36,7 +32,7 @@ export default class Issue extends Component {
               <div> User: {this.props.user.login}</div>
               <div> Comments: {this.props.comments}</div>
             </div>
-            <CommentList comment={this.state.comment} />
+            <CommentList comment={store.comment} />
           </div>
           <br />
         </div>

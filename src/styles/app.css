@@ -10,3 +10,10 @@
   font-variant: small-caps;
   text-shadow: 2px 2px 8px Black;
 }
+
+.App {
+  text-align: left;
+  background-color: #8b8e8e;
+  padding: 50px;
+  color: white;
+}
