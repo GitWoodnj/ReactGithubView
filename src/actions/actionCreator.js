@@ -1,27 +1,29 @@
 export function changeUser(text) {
   return {
-    type: 'getUser',
+    type: 'USERS',
     text
   };
 }
 
-export function showRepos(user) {
+export function showRepos(repo, userName, userUrl) {
   return {
-    type: 'getRepos',
-    user
+    type: 'APP',
+    repo,
+    userName,
+    userUrl
   };
 }
 
 export function showIssues(repo) {
   return {
-    type: 'getIssues',
+    type: 'REPO',
     repo
   };
 }
 
 export function showComments(issue) {
   return {
-    type: 'getComments',
+    type: 'ISSUE',
     issue
   };
 }

@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import '../styles/repo.css';
 import store from '../store/store';
 import IssueList from '../components/IssueList';
+
+const mapStateToProps = (state) => ({
+  ...state,
+  Issue: state.issue
+});
 
 class Repo extends Component {
     clickFunc = () => {
@@ -52,7 +58,7 @@ class Repo extends Component {
 
 
           </div>
-          <IssueList issue={store.issue} />
+          <IssueList issue={this.props.issue} />
           <br />
         </div>
       );
@@ -65,7 +71,8 @@ Repo.propTypes = {
   description: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
-  open_issues_count: PropTypes.string.isRequired
+  open_issues_count: PropTypes.string.isRequired,
+  issue: PropTypes.array.isRequired
 };
 
-export default Repo;
+export default connect(mapStateToProps)(Repo);

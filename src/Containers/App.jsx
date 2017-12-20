@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { connect, Provider } from 'react-redux';
 import Form from '../components/SearchBar';
 import User from '../containers/User';
 import store from '../store/store';
@@ -8,9 +7,13 @@ import '../styles/app.css';
 
 const mapStateToProps = (state) => ({
   ...state,
-  repos: state.repo,
+  repo: state.repo,
   userName: state.userName,
   userUrl: state.userUrl
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addNewCard: (cardInfo) => dispatch({ type: 'APP', cardInfo })
 });
 
 class App extends Component {
@@ -18,16 +21,16 @@ class App extends Component {
     if (cardInfo[0] != null) {
       store.dispatch({
         type: 'APP',
-        user: cardInfo[0].owner.login,
-        repoArr: cardInfo,
-        URL: cardInfo[0].owner.avatar_url
+        userName: cardInfo[0].owner.login,
+        repo: cardInfo,
+        userUrl: cardInfo[0].owner.avatar_url
       });
     } else {
       store.dispatch({
         type: 'APP',
-        user: 'Error! No repos found for user',
-        repoArr: [],
-        URL: ''
+        userName: 'Error! No repos found for user',
+        repo: [],
+        userUrl: ''
       });
     }
   };
@@ -41,22 +44,16 @@ class App extends Component {
             <span className="appRepo">
                 Git Some Repos
             </span> <br /><br />
-            <Form onSubmit={this.addNewCard} />
+            <Provider><Form onSubmit={this.addNewCard} /></Provider>
           </div>
 
         </header>
         <div>
-          <User repos={this.props.repos} name={this.props.userName} user_url={this.props.userUrl} />
+          <User store={store} />
         </div>
       </div>
     );
   }
 }
 
-App.propTypes = {
-  repos: PropTypes.array.isRequired,
-  userName: PropTypes.string.isRequired,
-  userUrl: PropTypes.string.isRequired
-};
-
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

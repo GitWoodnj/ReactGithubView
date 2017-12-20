@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import store from '../store/store';
 
+const mapStateToProps = (state) => ({
+  ...state,
+  userName: state.userName,
+});
+
 class Form extends Component {
     handleSubmit = (event) => {
       event.preventDefault();
-      axios.get(`https://api.github.com/users/${store.userName}/repos`)
+      axios.get(`https://api.github.com/users/${this.props.userName}/repos`)
         .then(resp => {
           this.props.onSubmit(resp.data);
         });
@@ -32,7 +38,8 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired
 };
 
-export default Form;
+export default connect(mapStateToProps)(Form);

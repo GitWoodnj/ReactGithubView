@@ -10,35 +10,30 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
   case 'USERS':
-    state = {
+    return {
       ...state,
       userName: action.payload
     };
-    break;
   case 'REPO':
-    state = {
+    return {
       ...state,
       issue: action.payload
     };
-    break;
   case 'APP':
-    state = {
+    return {
       ...state,
-      userName: action.user,
-      repo: action.repoArr,
-      userUrl: action.URL
+      userName: action.userName,
+      repo: action.repo,
+      userUrl: action.userUrl
     };
-    break;
   case 'ISSUE':
-    state = {
+    return {
       ...state,
       comment: action.payload
     };
-    break;
   default:
     return state;
   }
-  return state;
 };
 
 export default rootReducer;
