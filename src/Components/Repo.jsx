@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Issue from '../components/Issue';
 import '../styles/repo.css';
-import store from '../store/store';
-import IssueList from '../components/IssueList';
+import * as action from '../actions/actionCreator';
+
 
 const mapStateToProps = (state) => ({
-  ...state,
-  Issue: state.issue
+  issues: state.issues,
+  repos: state.repo
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  selectRepo: (user, repo) => dispatch(action.showIssues(user, repo))
 });
 
 class Repo extends Component {
     clickFunc = () => {
-      axios.get(`https://api.github.com/repos/${this.props.owner.login}/${this.props.name}/issues`)
-        .then(resp => this.receiveIssues(resp.data));
-    }
-
-    receiveIssues = (issues) => {
-      if (issues.length === store.issue.length) {
-        store.dispatch({
-          type: 'REPO',
-          payload: []
-        });
-      } else {
-        store.dispatch({
-          type: 'REPO',
-          payload: issues
-        });
+      if (this.props.open_issues_count !== '0') {
+        this.props.selectRepo(this.props.user, this.props.repoName);
       }
     }
     render() {
+      const repo =
+      (this.props.repos && this.props.repos.filter(x => x.id === this.props.repoId)[0]) || {};
       return (
         <div >
           <div
@@ -39,26 +32,37 @@ class Repo extends Component {
           >
             <div className="repoText">
               <div className="name">
-                {this.props.name}
+                {repo.name}
               </div>
               <div className="description" >
-                {this.props.description ? this.props.description : 'No description.'}
+                {repo.description ? repo.description : 'No description.'}
               </div>
               <hr />
               <div type="date" className="date" >
-                        Created: {this.props.created_at}
+                        Created: {repo.created_at}
               </div>
               <div className="language" >
-                        Language: {this.props.language}
+                        Language: {repo.language}
               </div>
               <div className="issueCount" >
-                        Issues: {this.props.open_issues_count} {' '}
+                        Issues: {repo.open_issues_count} {' '}
               </div>
             </div>
-
-
           </div>
-          <IssueList issue={this.props.issue} />
+          <div>
+            {this.props.issues &&
+              this.props.issues[this.props.repoName] &&
+              this.props.repoName &&
+              this.props.issues[this.props.repoName].map(issue =>
+                (<Issue
+                  issueId={issue.id}
+                  commentCount={issue.comments}
+                  issueName={issue.title}
+                  commentsUrl={issue.comments_url}
+                  user={this.props.userName}
+                  key={issue.id}
+                />))}
+          </div>
           <br />
         </div>
       );
@@ -66,13 +70,14 @@ class Repo extends Component {
 }
 
 Repo.propTypes = {
-  owner: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  created_at: PropTypes.string.isRequired,
-  language: PropTypes.string.isRequired,
-  open_issues_count: PropTypes.string.isRequired,
-  issue: PropTypes.array.isRequired
+  open_issues_count: PropTypes.number.isRequired,
+  selectRepo: PropTypes.func.isRequired,
+  user: PropTypes.any.isRequired,
+  repoName: PropTypes.string.isRequired,
+  issues: PropTypes.array.isRequired,
+  repos: PropTypes.array.isRequired,
+  userName: PropTypes.string.isRequired,
+  repoId: PropTypes.any.isRequired
 };
 
-export default connect(mapStateToProps)(Repo);
+export default connect(mapStateToProps, mapDispatchToProps)(Repo);

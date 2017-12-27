@@ -6,8 +6,7 @@ function Comment(prop) {
     <div>
       <br />
       <div className="commentBox">
-        <div className="body">{prop.body}</div>
-        <div className="info">{ ' - ' }{prop.user.login} {' '} {prop.created_at}</div>
+        <div className="body">{prop.commentText}</div>
       </div>
     </div>
   );

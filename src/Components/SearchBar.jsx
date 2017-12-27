@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import PropTypes from 'prop-types';
-import store from '../store/store';
+import * as action from '../actions/actionCreator';
 
 const mapStateToProps = (state) => ({
-  ...state,
   userName: state.userName,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateUsername: (event) => dispatch({ type: 'UPDATE_USERNAME', value: event.target.value }),
+  selectUser: (username) => dispatch(action.showRepos(username))
 });
 
 class Form extends Component {
     handleSubmit = (event) => {
       event.preventDefault();
-      axios.get(`https://api.github.com/users/${this.props.userName}/repos`)
-        .then(resp => {
-          this.props.onSubmit(resp.data);
-        });
+      this.props.selectUser(this.props.userName);
     }
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            value={store.userName}
-            onChange={(event) => store.dispatch({
-              type: 'USER',
-              payload: event.target.value
-            })}
-
+            value={this.props.userName}
+            onChange={this.props.updateUsername}
             placeholder="Github User"
             required
           />
@@ -38,8 +34,9 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired
+  userName: PropTypes.string.isRequired,
+  selectUser: PropTypes.func.isRequired,
+  updateUsername: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

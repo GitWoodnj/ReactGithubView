@@ -1,36 +1,41 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Repo from '../components/Repo';
 import '../styles/user.css';
 
-function User(gitUser) {
-  let repoCount;
+const mapStateToProps = (state) => ({
+  userName: state.userName,
+  repos: state.repo,
+  userUrl: state.userUrl
+});
 
-  if (gitUser.repos.length !== 0) {
-    repoCount = `Repos: ${gitUser.repos.length}`;
-  } else {
-    repoCount = '';
-  }
-
+function User(prop) {
   return (
     <div>
       <div className="user">
-        <img alt="" width="150" src={gitUser.user_url} />
+        <img alt="" width="150" src={prop.userUrl} />
         <div className="user-info">
           <div className="name">
-            {gitUser.name}
+            {prop.userName}
           </div>
           <div className="count">
-            {repoCount}
+              Repos: {prop.repos.length}
           </div>
         </div>
       </div>
       <div className="col-5">
-        {gitUser.repos && gitUser.repos.map(repo => <Repo {...repo} key={repo.id} />)}
+        {prop.repos &&
+          prop.repos.map(repo =>
+            (<Repo
+              repoId={repo.id}
+              repoName={repo.name}
+              user={prop.userName}
+              key={repo.id}
+            />))}
       </div>
 
     </div>
   );
 }
 
-
-export default User;
+export default connect(mapStateToProps)(User);

@@ -2,34 +2,40 @@
 const initialState = {
   userName: '',
   repo: [],
-  issue: [],
-  comment: [],
+  issues: {},
+  comments: {},
   userUrl: ''
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'USERS':
+  case 'UPDATE_USERNAME':
     return {
       ...state,
-      userName: action.payload
+      userName: action.value
     };
-  case 'REPO':
+  case 'REPO_SELECTED':
     return {
       ...state,
-      issue: action.payload
+      issues: {
+        ...state.issues,
+        [action.id]: action.data
+      }
     };
-  case 'APP':
+  case 'SELECT_USER':
     return {
       ...state,
-      userName: action.userName,
-      repo: action.repo,
-      userUrl: action.userUrl
+      userName: action.data[0].owner.login,
+      repo: action.data,
+      userUrl: action.data[0].owner.avatar_url
     };
-  case 'ISSUE':
+  case 'ISSUE_SELECTED':
     return {
       ...state,
-      comment: action.payload
+      comments: {
+        ...state.comments,
+        [action.id]: action.data
+      }
     };
   default:
     return state;
