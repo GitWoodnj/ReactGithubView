@@ -35,12 +35,17 @@ class Issue extends Component {
           <div onDoubleClick={this.clickButt}>
             <div className="body">
               <div className="bodyInfo">Issue: {this.props.issueName}</div>
-              <div> User: {this.props.userName}</div>
+              <div> User: {this.props.user}</div>
               <div> Comments: {this.props.commentCount}</div>
             </div>
             <div>
               {comments && comments.map(comment =>
-                <Comment commentText={comment.body} key={comment.id} />)
+                (<Comment
+                  commentText={comment.body}
+                  key={comment.id}
+                  commentUserName={comment.user.login}
+                  commentTime={comment.created_at}
+                />))
               }
             </div>
           </div>
@@ -56,7 +61,7 @@ Issue.propTypes = {
   commentsUrl: PropTypes.string.isRequired,
   issueId: PropTypes.string.isRequired,
   issueName: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
   commentCount: PropTypes.number.isRequired
 };
 

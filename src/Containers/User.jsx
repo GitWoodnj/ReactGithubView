@@ -10,6 +10,11 @@ const mapStateToProps = (state) => ({
 });
 
 function User(prop) {
+  if (!prop.repos || prop.repos.length < 1) {
+    return (
+      <div />
+    );
+  }
   return (
     <div>
       <div className="user">

@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-export function changeUser(text) {
-  return {
-    type: 'USERS',
-    text
-  };
-}
-
 export function showRepos(value) {
   return (dispatch) => axios.get(`https://api.github.com/users/${value}/repos`)
     .then(resp => {

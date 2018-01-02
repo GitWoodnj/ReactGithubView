@@ -9,11 +9,6 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'UPDATE_USERNAME':
-    return {
-      ...state,
-      userName: action.value
-    };
   case 'REPO_SELECTED':
     return {
       ...state,

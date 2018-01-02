@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'moment';
 import { connect } from 'react-redux';
 import Issue from '../components/Issue';
 import '../styles/repo.css';
@@ -24,6 +25,7 @@ class Repo extends Component {
     render() {
       const repo =
       (this.props.repos && this.props.repos.filter(x => x.id === this.props.repoId)[0]) || {};
+      Moment.locale('en');
       return (
         <div >
           <div
@@ -39,7 +41,7 @@ class Repo extends Component {
               </div>
               <hr />
               <div type="date" className="date" >
-                        Created: {repo.created_at}
+                        Created: {Moment(repo.created_at).format('MMM DD, YYYY - h:mm a')}
               </div>
               <div className="language" >
                         Language: {repo.language}
@@ -59,7 +61,7 @@ class Repo extends Component {
                   commentCount={issue.comments}
                   issueName={issue.title}
                   commentsUrl={issue.comments_url}
-                  user={this.props.userName}
+                  user={issue.user.login}
                   key={issue.id}
                 />))}
           </div>
@@ -76,7 +78,6 @@ Repo.propTypes = {
   repoName: PropTypes.string.isRequired,
   issues: PropTypes.array.isRequired,
   repos: PropTypes.array.isRequired,
-  userName: PropTypes.string.isRequired,
   repoId: PropTypes.any.isRequired
 };
 

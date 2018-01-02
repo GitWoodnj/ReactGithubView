@@ -8,22 +8,22 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUsername: (event) => dispatch({ type: 'UPDATE_USERNAME', value: event.target.value }),
   selectUser: (username) => dispatch(action.showRepos(username))
 });
 
 class Form extends Component {
+    state = { userName: '' }
     handleSubmit = (event) => {
       event.preventDefault();
-      this.props.selectUser(this.props.userName);
+      this.props.selectUser(this.state.userName);
     }
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            value={this.props.userName}
-            onChange={this.props.updateUsername}
+            value={this.state.userName}
+            onChange={(event) => this.setState({ userName: event.target.value })}
             placeholder="Github User"
             required
           />
@@ -34,9 +34,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  userName: PropTypes.string.isRequired,
-  selectUser: PropTypes.func.isRequired,
-  updateUsername: PropTypes.func.isRequired
+  selectUser: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
